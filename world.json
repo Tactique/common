@@ -13,7 +13,7 @@
         ],
         "units": [
             { "unit":
-                "name": "tank",
+                "name": "Tank",
                 "player_id": 4,
                 "health": 10,
                 "position": [1, 2],
