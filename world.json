@@ -16,7 +16,7 @@
                 "name": "Tank",
                 "player_id": 4,
                 "health": 10,
-                "position": [1, 2],
+                "position": {"x": 1, "y": 2},
                 "distance": 10,
                 "movement": {
                     "type": "treads",
