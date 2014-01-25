@@ -1,0 +1,28 @@
+{ "world":
+    {
+        "terrain": [[0, 0], [0, 0]],
+        "players": [
+            { "player":
+                "player_id": 4,
+                "team": 0
+            },
+            { "player":
+                "player_id": 26,
+                "team": 1
+            }
+        ],
+        "units": [
+            { "unit":
+                "name": "tank",
+                "player_id": 4,
+                "health": 10,
+                "position": [1, 2],
+                "distance": 10,
+                "movement": {
+                    "type": "treads",
+                    "costs": { 0, 1.0 }
+                }
+            }
+        ]
+    }
+}
