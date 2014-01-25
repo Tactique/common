@@ -3,24 +3,32 @@
         "terrain": [[0, 0], [0, 0]],
         "players": [
             { "player":
-                "player_id": 4,
-                "team": 0
+                {
+                    "player_id": 4,
+                    "nation": 0,
+                    "team": 0
+                }
             },
             { "player":
-                "player_id": 26,
-                "team": 1
+                {
+                    "player_id": 26,
+                    "nation": 1,
+                    "team": 1
+                }
             }
         ],
         "units": [
             { "unit":
-                "name": "Tank",
-                "player_id": 4,
-                "health": 10,
-                "position": {"x": 1, "y": 2},
-                "distance": 10,
-                "movement": {
-                    "type": "treads",
-                    "costs": { 0, 1.0 }
+                {
+                    "name": "Tank",
+                    "nation": 0,
+                    "health": 10,
+                    "position": {"x": 1, "y": 2},
+                    "distance": 10,
+                    "movement": {
+                        "type": "treads",
+                        "costs": { 0, 1.0 }
+                    }
                 }
             }
         ]
