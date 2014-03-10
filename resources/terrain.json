@@ -1,0 +1,8 @@
+{
+    "terrain": [
+        {
+            "spriteName": "plains",
+            "cType": 0
+        }
+    ]
+}
