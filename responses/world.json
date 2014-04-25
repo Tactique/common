@@ -22,7 +22,7 @@
                 "distance": 10,
                 "movement": {
                     "type": "treads",
-                    "speeds": { "0", 1.0 }
+                    "speeds": { "0": 1.0 }
                 }
             }
         ]
