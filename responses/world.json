@@ -1,28 +1,85 @@
 {
     "viewWorld": {
-        "terrain": [[0, 0], [0, 0]],
+        "terrain": [
+            [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+            [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+            [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+            [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+            [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+            [ 0, 0, 0, 0, 0, 0, 0, 0 ]
+        ],
         "players": [
             {
-                "player_id": 4,
                 "nation": 0,
+                "playerId": 26,
                 "team": 0
             },
             {
-                "player_id": 26,
                 "nation": 1,
+                "playerId": 13,
                 "team": 1
             }
         ],
+        "turnOwner": 26,
         "units": [
             {
-                "name": "Tank",
-                "nation": 0,
-                "health": 10,
-                "position": {"x": 1, "y": 2},
+                "armor": {
+                    "armorType": 2,
+                    "name": "Chain Mail",
+                    "strength": 3
+                },
+                "attacks": [
+                    {
+                        "attackType": 0,
+                        "name": "Basic Sword",
+                        "power": 2
+                    }
+                ],
+                "canAttack": true,
+                "canMove": true,
                 "distance": 10,
+                "health": 10,
                 "movement": {
-                    "type": "treads",
-                    "speeds": { "0": 1.0 }
+                    "speeds": {
+                        "0": 1
+                    },
+                    "type": "Legs"
+                },
+                "name": "Warrior",
+                "nation": 1,
+                "position": {
+                    "x": 0,
+                    "y": 3
+                }
+            },
+            {
+                "armor": {
+                    "armorType": 2,
+                    "name": "Chain Mail",
+                    "strength": 3
+                },
+                "attacks": [
+                    {
+                        "attackType": 0,
+                        "name": "Basic Sword",
+                        "power": 2
+                    }
+                ],
+                "canAttack": true,
+                "canMove": false,
+                "distance": 10,
+                "health": 10,
+                "movement": {
+                    "speeds": {
+                        "0": 1
+                    },
+                    "type": "Legs"
+                },
+                "name": "Warrior",
+                "nation": 0,
+                "position": {
+                    "x": 0,
+                    "y": 1
                 }
             }
         ]
