@@ -25,20 +25,22 @@
                 "armor": {
                     "armorType": 2,
                     "name": "Chain Mail",
-                    "strength": 3
+                    "strength": 2
                 },
                 "attacks": [
                     {
                         "attackType": 0,
+                        "maxRange": 1,
+                        "minRange": 1,
                         "name": "Basic Sword",
-                        "power": 2
+                        "power": 4
                     }
                 ],
                 "canAttack": true,
                 "canMove": true,
-                "distance": 10,
                 "health": 10,
                 "movement": {
+                    "distance": 10,
                     "speeds": {
                         "0": 1
                     },
@@ -55,20 +57,22 @@
                 "armor": {
                     "armorType": 2,
                     "name": "Chain Mail",
-                    "strength": 3
+                    "strength": 2
                 },
                 "attacks": [
                     {
                         "attackType": 0,
+                        "maxRange": 1,
+                        "minRange": 1,
                         "name": "Basic Sword",
-                        "power": 2
+                        "power": 4
                     }
                 ],
                 "canAttack": true,
-                "canMove": false,
-                "distance": 10,
+                "canMove": true,
                 "health": 10,
                 "movement": {
+                    "distance": 10,
                     "speeds": {
                         "0": 1
                     },
