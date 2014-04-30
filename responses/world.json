@@ -8,19 +8,18 @@
             [ 0, 0, 0, 0, 0, 0, 0, 0 ],
             [ 0, 0, 0, 0, 0, 0, 0, 0 ]
         ],
-        "players": [
-            {
-                "nation": 0,
-                "playerId": 26,
-                "team": 0
-            },
+        "me": {
+            "nation": 0,
+            "team": 0
+        },
+        "teamMates": [],
+        "enemies": [
             {
                 "nation": 1,
-                "playerId": 13,
                 "team": 1
             }
         ],
-        "turnOwner": 26,
+        "turnOwner": 1,
         "units": [
             {
                 "armor": {
