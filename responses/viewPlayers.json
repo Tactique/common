@@ -1,0 +1,16 @@
+{
+    "viewPlayers": {
+        "enemies": [
+            {
+                "nation": 1,
+                "team": 1
+            }
+        ],
+        "me": {
+            "nation": 0,
+            "team": 0
+        },
+        "teamMates": [],
+        "turnOwner": 0
+    }
+}

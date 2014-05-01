@@ -1,26 +1,38 @@
 {
-    "viewWorld": {
-        "terrain": [
-            [ 0, 0, 0, 0, 0, 0, 0, 0 ],
-            [ 0, 0, 0, 0, 0, 0, 0, 0 ],
-            [ 0, 0, 0, 0, 0, 0, 0, 0 ],
-            [ 0, 0, 0, 0, 0, 0, 0, 0 ],
-            [ 0, 0, 0, 0, 0, 0, 0, 0 ],
-            [ 0, 0, 0, 0, 0, 0, 0, 0 ]
-        ],
-        "me": {
-            "nation": 0,
-            "team": 0
-        },
-        "teamMates": [],
-        "enemies": [
-            {
-                "nation": 1,
-                "team": 1
-            }
-        ],
-        "turnOwner": 1,
+    "viewUnits": {
         "units": [
+            {
+                "armor": {
+                    "armorType": 2,
+                    "name": "Chain Mail",
+                    "strength": 2
+                },
+                "attacks": [
+                    {
+                        "attackType": 0,
+                        "maxRange": 1,
+                        "minRange": 1,
+                        "name": "Basic Sword",
+                        "power": 4
+                    }
+                ],
+                "canAttack": true,
+                "canMove": true,
+                "health": 10,
+                "movement": {
+                    "distance": 10,
+                    "speeds": {
+                        "0": 1
+                    },
+                    "type": "Legs"
+                },
+                "name": "Warrior",
+                "nation": 0,
+                "position": {
+                    "x": 0,
+                    "y": 0
+                }
+            },
             {
                 "armor": {
                     "armorType": 2,
@@ -51,38 +63,6 @@
                 "position": {
                     "x": 0,
                     "y": 3
-                }
-            },
-            {
-                "armor": {
-                    "armorType": 2,
-                    "name": "Chain Mail",
-                    "strength": 2
-                },
-                "attacks": [
-                    {
-                        "attackType": 0,
-                        "maxRange": 1,
-                        "minRange": 1,
-                        "name": "Basic Sword",
-                        "power": 4
-                    }
-                ],
-                "canAttack": true,
-                "canMove": true,
-                "health": 10,
-                "movement": {
-                    "distance": 10,
-                    "speeds": {
-                        "0": 1
-                    },
-                    "type": "Legs"
-                },
-                "name": "Warrior",
-                "nation": 0,
-                "position": {
-                    "x": 0,
-                    "y": 1
                 }
             }
         ]
