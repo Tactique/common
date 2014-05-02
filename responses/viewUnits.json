@@ -4,29 +4,34 @@
             {
                 "armor": {
                     "armorType": 2,
-                    "name": "Chain Mail",
-                    "strength": 2
+                    "name": "simple chain mail",
+                    "strength": 3
                 },
                 "attacks": [
                     {
                         "attackType": 0,
                         "maxRange": 1,
                         "minRange": 1,
-                        "name": "Basic Sword",
+                        "name": "basic sword",
                         "power": 4
                     }
                 ],
                 "canAttack": true,
                 "canMove": true,
-                "health": 10,
+                "health": 50,
                 "movement": {
-                    "distance": 10,
+                    "distance": 7,
                     "speeds": {
-                        "0": 1
+                        "0": 1,
+                        "1": 1,
+                        "2": 2,
+                        "3": 2,
+                        "4": 3,
+                        "5": 4
                     },
-                    "type": "Legs"
+                    "type": "strong legs"
                 },
-                "name": "Warrior",
+                "name": "warrior",
                 "nation": 0,
                 "position": {
                     "x": 0,
@@ -36,29 +41,34 @@
             {
                 "armor": {
                     "armorType": 2,
-                    "name": "Chain Mail",
-                    "strength": 2
+                    "name": "simple chain mail",
+                    "strength": 3
                 },
                 "attacks": [
                     {
                         "attackType": 0,
                         "maxRange": 1,
                         "minRange": 1,
-                        "name": "Basic Sword",
+                        "name": "basic sword",
                         "power": 4
                     }
                 ],
                 "canAttack": true,
                 "canMove": true,
-                "health": 10,
+                "health": 50,
                 "movement": {
-                    "distance": 10,
+                    "distance": 7,
                     "speeds": {
-                        "0": 1
+                        "0": 1,
+                        "1": 1,
+                        "2": 2,
+                        "3": 2,
+                        "4": 3,
+                        "5": 4
                     },
-                    "type": "Legs"
+                    "type": "strong legs"
                 },
-                "name": "Warrior",
+                "name": "warrior",
                 "nation": 1,
                 "position": {
                     "x": 0,
