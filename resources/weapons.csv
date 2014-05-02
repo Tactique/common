@@ -1,0 +1,3 @@
+name,weaponType,power,minRange,maxRange
+basic sword,sword,4,1,1
+big sword,sword,8,1,1

@@ -1,0 +1,8 @@
+name,strength,armorType
+cloth,1,cloth
+simple leather,2,leather
+strong leather,3,leather
+simple chain mail,3,chain mail
+strong chain mail,4,chain mail
+simple plate,3,plate
+strong plate,6,plate
