@@ -1,2 +1,2 @@
-name,health,attack_one,attack_two,armor,movement
-warrior,50,basic sword,null,simple chain mail,strong legs
+name,health,attack_one,armor,movement
+warrior,50,basic sword,simple chain mail,strong legs
