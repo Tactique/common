@@ -1,1 +1,2 @@
 database/db.sqlite3
+*.pyc
