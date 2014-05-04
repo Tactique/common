@@ -1,2 +1,3 @@
 name,health,attack_one,armor,movement
 warrior,50,basic sword,simple chain mail,strong legs
+mage,30,simple wand,cloth,weak legs
