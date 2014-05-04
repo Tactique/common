@@ -21,7 +21,7 @@ class Seeder:
     def __init__(self, session):
         self.session = session
         try:
-            self.resource_path = '%s/common/resources/' % (os.environ['DOMOROOT'],)
+            self.resource_path = '%s/common/resources/' % (os.environ['ROOTIQUE'],)
         except KeyError:
             raise Exception("Please define the $DOMOROOT environment variable to your domoco dir")
 
