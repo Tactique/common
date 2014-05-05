@@ -4,7 +4,7 @@ import os
 import csv
 
 from engine import engine
-from tables import (
+from tables.game_engine import (
     Team,
     Cell,
     WeaponType,
@@ -25,8 +25,12 @@ class Seeder:
         except KeyError:
             raise Exception("Please define the $DOMOROOT environment variable to your domoco dir")
 
-    def run(self):
-        self.clearAllTables()
+    def seed_all(self):
+        self.seed_game_engine()
+
+
+    def seed_game_engine(self):
+        self.clear_game_engine()
         self.seed_entries(Team, "Team", 'teams.csv')
         self.seed_entries(Cell, "Cell", 'terrain.csv', unique_name='cellType')
         weapon_types  = self.seed_entries(WeaponType, "WeaponType", 'weaponTypes.csv')
@@ -41,7 +45,7 @@ class Seeder:
             'armor': armors,
             'movement': movements})
 
-    def clearAllTables(self):
+    def clear_game_engine(self):
         print("Clearing all Tables")
         def print_delete_count(x):
             print("deleted %s" % x)
@@ -102,5 +106,5 @@ def is_int(string):
 
 if __name__ == '__main__':
     session = engine.get_session()
-    Seeder(session).run()
+    Seeder(session).seed_all()
     session.commit()

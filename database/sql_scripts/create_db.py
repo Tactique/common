@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from tables import Base
+from tables.game_engine import Base
 from engine import engine
 
 
