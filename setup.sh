@@ -34,7 +34,6 @@ function install_deps() {
 }
 
 function main() {
-	echo $#
 	if [ $# -lt 1 ]; then
 			setup_database
 	else
