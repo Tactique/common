@@ -2,6 +2,7 @@
 
 import os
 import csv
+import json
 
 from engine import engine
 from tables.game_engine import (
@@ -15,6 +16,9 @@ from tables.game_engine import (
     Movement,
     Unit,
 )
+from tables.templates import (
+    ResponseTemplate
+)
 
 
 class Seeder:
@@ -23,12 +27,24 @@ class Seeder:
         try:
             database_path = os.path.join(os.environ['ROOTIQUE'], 'common', 'database')
             self.seed_data = os.path.join(database_path, 'seed_data')
+            self.template_data = os.path.join(database_path, 'templates')
         except KeyError:
             raise Exception("Please define the $ROOTIQUE environment variable to your Tactique/ dir")
 
     def seed_all(self):
         self.seed_game_engine()
+        self.seed_templates()
 
+    def seed_templates(self):
+        self.clear_templates()
+        for response_path in os.listdir(self.template_data):
+            with open(os.path.join(self.template_data, response_path), 'r') as file_:
+                templates = json.loads(file_.read())
+                for template in templates:
+                    print("Adding template for response %s" % template)
+                    JSONstr = json.dumps(templates[template])
+                    new_template = ResponseTemplate(name=template, json=JSONstr)
+                    self.session.add(new_template)
 
     def seed_game_engine(self):
         self.clear_game_engine()
@@ -45,6 +61,10 @@ class Seeder:
             #'attack_two': weapons,
             'armor': armors,
             'movement': movements})
+
+    def clear_templates(self):
+        print("Clearing all template tables")
+        print_delete_count(self.session.query(ResponseTemplate).delete())
 
     def clear_game_engine(self):
         print("Clearing all game engine tables")
