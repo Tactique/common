@@ -5,6 +5,7 @@ from engine import engine
 
 
 def main():
+    print("Creating database with game related tables")
     Base.metadata.create_all(engine.get_engine())
 
 
