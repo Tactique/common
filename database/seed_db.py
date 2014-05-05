@@ -43,21 +43,18 @@ class Seeder:
 
     def clearAllTables(self):
         print("Clearing all Tables")
-        def delete_me(x):
-            print("deleting %s" % x)
-            x.delete()
+        def print_delete_count(x):
+            print("deleted %s" % x)
 
-        '''
-        map(delete_me, Team.objects.all())
-        map(delete_me, Cell.objects.all())
-        map(delete_me, WeaponType.objects.all())
-        map(delete_me, Weapon.objects.all())
-        map(delete_me, ArmorType.objects.all())
-        map(delete_me, Armor.objects.all())
-        map(delete_me, SpeedMap.objects.all())
-        map(delete_me, Movement.objects.all())
-        map(delete_me, Unit.objects.all())
-        '''
+        print_delete_count(self.session.query(Team).delete())
+        print_delete_count(self.session.query(Cell).delete())
+        print_delete_count(self.session.query(WeaponType).delete())
+        print_delete_count(self.session.query(Weapon).delete())
+        print_delete_count(self.session.query(ArmorType).delete())
+        print_delete_count(self.session.query(Armor).delete())
+        print_delete_count(self.session.query(SpeedMap).delete())
+        print_delete_count(self.session.query(Movement).delete())
+        print_delete_count(self.session.query(Unit).delete())
 
     def seed_entries(self, constructor, model_name, csv_file, reference_information={}, unique_name='name'):
         dbEntries = {}
@@ -65,12 +62,9 @@ class Seeder:
             reader = csv.reader(file_, quotechar='\'')
             names = next(reader, None)
             for pieces in reader:
-                print(pieces)
                 pieces = convert_ints(pieces)
-                print(pieces)
                 index = names.index(unique_name)
                 kwargs = dict(zip(names, pieces))
-                print(kwargs)
                 for reference_name, reference_table in reference_information.items():
                     if reference_name in kwargs:
                         if kwargs[reference_name] != 'null':
@@ -82,7 +76,6 @@ class Seeder:
                             reference_name, csv_file))
                 print("Creating %s(%s)" % (
                     model_name, ', '.join(map(str, pieces))))
-                print(kwargs)
                 dbEntry = constructor(**kwargs)
                 self.session.add(dbEntry)
                 dbEntries[pieces[index]] = dbEntry
