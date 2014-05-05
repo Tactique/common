@@ -21,3 +21,6 @@ class Engine:
 
 
 engine = Engine()
+
+if __name__ == '__main__':
+    session = engine.get_session()
