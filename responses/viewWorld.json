@@ -119,24 +119,24 @@
                 },
                 {
                     "armor": {
-                        "armorType": 2,
-                        "name": "simple chain mail",
-                        "strength": 3
+                        "armorType": 0,
+                        "name": "cloth",
+                        "strength": 1
                     },
                     "attacks": [
                         {
-                            "attackType": 0,
-                            "maxRange": 1,
-                            "minRange": 1,
-                            "name": "basic sword",
+                            "attackType": 6,
+                            "maxRange": 5,
+                            "minRange": 2,
+                            "name": "simple wand",
                             "power": 4
                         }
                     ],
                     "canAttack": true,
                     "canMove": true,
-                    "health": 50,
+                    "health": 30,
                     "movement": {
-                        "distance": 7,
+                        "distance": 4,
                         "speeds": {
                             "0": 1,
                             "1": 1,
@@ -145,9 +145,46 @@
                             "4": 3,
                             "5": 4
                         },
-                        "type": "strong legs"
+                        "type": "weak legs"
                     },
-                    "name": "warrior",
+                    "name": "mage",
+                    "nation": 0,
+                    "position": {
+                        "x": 3,
+                        "y": 3
+                    }
+                },
+                {
+                    "armor": {
+                        "armorType": 0,
+                        "name": "cloth",
+                        "strength": 1
+                    },
+                    "attacks": [
+                        {
+                            "attackType": 6,
+                            "maxRange": 5,
+                            "minRange": 2,
+                            "name": "simple wand",
+                            "power": 4
+                        }
+                    ],
+                    "canAttack": true,
+                    "canMove": true,
+                    "health": 30,
+                    "movement": {
+                        "distance": 4,
+                        "speeds": {
+                            "0": 1,
+                            "1": 1,
+                            "2": 2,
+                            "3": 2,
+                            "4": 3,
+                            "5": 4
+                        },
+                        "type": "weak legs"
+                    },
+                    "name": "mage",
                     "nation": 1,
                     "position": {
                         "x": 0,
