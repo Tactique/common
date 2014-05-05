@@ -21,9 +21,10 @@ class Seeder:
     def __init__(self, session):
         self.session = session
         try:
-            self.resource_path = '%s/common/database/seed_data/' % (os.environ['ROOTIQUE'],)
+            database_path = os.path.join(os.environ['ROOTIQUE'], 'common', 'database')
+            self.seed_data = os.path.join(database_path, 'seed_data')
         except KeyError:
-            raise Exception("Please define the $DOMOROOT environment variable to your domoco dir")
+            raise Exception("Please define the $ROOTIQUE environment variable to your Tactique/ dir")
 
     def seed_all(self):
         self.seed_game_engine()
@@ -46,10 +47,7 @@ class Seeder:
             'movement': movements})
 
     def clear_game_engine(self):
-        print("Clearing all Tables")
-        def print_delete_count(x):
-            print("deleted %s" % x)
-
+        print("Clearing all game engine tables")
         print_delete_count(self.session.query(Team).delete())
         print_delete_count(self.session.query(Cell).delete())
         print_delete_count(self.session.query(WeaponType).delete())
@@ -62,7 +60,7 @@ class Seeder:
 
     def seed_entries(self, constructor, model_name, csv_file, reference_information={}, unique_name='name'):
         dbEntries = {}
-        with open(self.resource_path + csv_file, 'r') as file_:
+        with open(os.path.join(self.seed_data, csv_file), 'r') as file_:
             reader = csv.reader(file_, quotechar='\'')
             names = next(reader, None)
             for pieces in reader:
@@ -85,6 +83,9 @@ class Seeder:
                 dbEntries[pieces[index]] = dbEntry
         return dbEntries
 
+
+def print_delete_count(x):
+    print("deleted %s" % x)
 
 def convert_ints(pieces):
     ret = []
