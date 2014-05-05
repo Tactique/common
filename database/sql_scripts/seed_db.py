@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import sys
 import os
 import csv
 import json
@@ -31,11 +32,8 @@ class Seeder:
         except KeyError:
             raise Exception("Please define the $ROOTIQUE environment variable to your Tactique/ dir")
 
-    def seed_all(self):
-        self.seed_game_engine()
-        self.seed_templates()
-
-    def seed_templates(self):
+class TemplateSeeder(Seeder):
+    def seed(self):
         self.clear_templates()
         for response_path in os.listdir(self.template_data):
             with open(os.path.join(self.template_data, response_path), 'r') as file_:
@@ -46,7 +44,25 @@ class Seeder:
                     new_template = ResponseTemplate(name=template, json=JSONstr)
                     self.session.add(new_template)
 
-    def seed_game_engine(self):
+    def clear_templates(self):
+        print("Clearing all template tables")
+        print_delete_count(self.session.query(ResponseTemplate).delete())
+
+
+class GameEngineSeeder(Seeder):
+    def clear_game_engine(self):
+        print("Clearing all game engine tables")
+        print_delete_count(self.session.query(Team).delete())
+        print_delete_count(self.session.query(Cell).delete())
+        print_delete_count(self.session.query(WeaponType).delete())
+        print_delete_count(self.session.query(Weapon).delete())
+        print_delete_count(self.session.query(ArmorType).delete())
+        print_delete_count(self.session.query(Armor).delete())
+        print_delete_count(self.session.query(SpeedMap).delete())
+        print_delete_count(self.session.query(Movement).delete())
+        print_delete_count(self.session.query(Unit).delete())
+
+    def seed(self):
         self.clear_game_engine()
         self.seed_entries(Team, "Team", 'teams.csv')
         self.seed_entries(Cell, "Cell", 'terrain.csv', unique_name='cellType')
@@ -61,22 +77,6 @@ class Seeder:
             #'attack_two': weapons,
             'armor': armors,
             'movement': movements})
-
-    def clear_templates(self):
-        print("Clearing all template tables")
-        print_delete_count(self.session.query(ResponseTemplate).delete())
-
-    def clear_game_engine(self):
-        print("Clearing all game engine tables")
-        print_delete_count(self.session.query(Team).delete())
-        print_delete_count(self.session.query(Cell).delete())
-        print_delete_count(self.session.query(WeaponType).delete())
-        print_delete_count(self.session.query(Weapon).delete())
-        print_delete_count(self.session.query(ArmorType).delete())
-        print_delete_count(self.session.query(Armor).delete())
-        print_delete_count(self.session.query(SpeedMap).delete())
-        print_delete_count(self.session.query(Movement).delete())
-        print_delete_count(self.session.query(Unit).delete())
 
     def seed_entries(self, constructor, model_name, csv_file, reference_information={}, unique_name='name'):
         dbEntries = {}
@@ -104,6 +104,7 @@ class Seeder:
         return dbEntries
 
 
+
 def print_delete_count(x):
     print("deleted %s" % x)
 
@@ -126,6 +127,18 @@ def is_int(string):
 
 
 if __name__ == '__main__':
+    seeders = {
+        'game_engine': GameEngineSeeder,
+        'template': TemplateSeeder
+    }
     session = engine.get_session()
-    Seeder(session).seed_all()
+    if len(sys.argv) < 1:
+        TemplateSeeder(session).seed_all()
+        GameEngineSeeder(session).seed_all()
+    else:
+        if sys.argv[1] in seeders:
+            seeders[sys.argv[1]](session).seed()
+        else:
+            print('Invalid seeder given must be one of: %s' % ' '.join(seeders.keys()))
+            sys.exit(1)
     session.commit()
