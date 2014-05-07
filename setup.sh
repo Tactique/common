@@ -24,7 +24,7 @@ function generate_templates() {
 	mkdir -p ${TEMPLATE_DIR}
 
 	pushd ../game_engine
-	GOPATH=$(pwd) go run templater.go -filepath=${TEMPLATE_DIR}
+	GOPATH=$(pwd) go run engine.go -write_templates=true -template_out_dir=${TEMPLATE_DIR}
 	popd
 }
 
