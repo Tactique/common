@@ -1,11 +1,10 @@
 #!/bin/bash
 
 ME=$(basename $0)
-DATABASE_DIR="$(dirname $(readlink -f ${ME}))/database"
-TEMPLATE_DIR="${DATABASE_DIR}/templates"
+TEMPLATE_DIR="${ROOTIQUE}/common/database/templates"
 
 function usage() {
-	echo "either supply no arguments \"deps\" or \"sync\""
+	echo "Usage: ${ME} [ deps | sync ]"
 }
 
 function setup_database() {
