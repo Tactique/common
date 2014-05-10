@@ -14,9 +14,9 @@ function setup_database() {
 }
 
 function sync_database() {
-	./database/sql_scripts/seed_db.py game_engine
+	./database/sql_scripts/seeder.py GameEngineSeeder
 	generate_templates
-	./database/sql_scripts/seed_db.py template
+	./database/sql_scripts/seeder.py TemplateSeeder
 }
 
 function generate_templates() {

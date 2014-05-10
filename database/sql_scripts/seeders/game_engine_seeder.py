@@ -1,11 +1,6 @@
-#!/usr/bin/env python
-
-import sys
 import os
 import csv
-import json
 
-from engine import engine
 from tables.game_engine import (
     Team,
     Cell,
@@ -17,39 +12,11 @@ from tables.game_engine import (
     Movement,
     Unit,
 )
-from tables.templates import (
-    ResponseTemplate
-)
+
+from seeders.base_seeder import BaseSeeder, print_delete_count
 
 
-class Seeder:
-    def __init__(self, session):
-        self.session = session
-        try:
-            database_path = os.path.join(os.environ['ROOTIQUE'], 'common', 'database')
-            self.seed_data = os.path.join(database_path, 'seed_data')
-            self.template_data = os.path.join(database_path, 'templates')
-        except KeyError:
-            raise Exception("Please define the $ROOTIQUE environment variable to your Tactique/ dir")
-
-class TemplateSeeder(Seeder):
-    def seed(self):
-        self.clear_templates()
-        for response_path in os.listdir(self.template_data):
-            with open(os.path.join(self.template_data, response_path), 'r') as file_:
-                templates = json.loads(file_.read())
-                for template in templates:
-                    print("Adding template for response %s" % template)
-                    JSONstr = json.dumps(templates[template])
-                    new_template = ResponseTemplate(name=template, json=JSONstr)
-                    self.session.add(new_template)
-
-    def clear_templates(self):
-        print("Clearing all template tables")
-        print_delete_count(self.session.query(ResponseTemplate).delete())
-
-
-class GameEngineSeeder(Seeder):
+class GameEngineSeeder(BaseSeeder):
     def clear_game_engine(self):
         print("Clearing all game engine tables")
         print_delete_count(self.session.query(Team).delete())
@@ -103,11 +70,6 @@ class GameEngineSeeder(Seeder):
                 dbEntries[pieces[index]] = dbEntry
         return dbEntries
 
-
-
-def print_delete_count(x):
-    print("deleted %s" % x)
-
 def convert_ints(pieces):
     ret = []
     for piece in pieces:
@@ -124,21 +86,3 @@ def is_int(string):
         return True
     except ValueError:
         return False
-
-
-if __name__ == '__main__':
-    seeders = {
-        'game_engine': GameEngineSeeder,
-        'template': TemplateSeeder
-    }
-    session = engine.get_session()
-    if len(sys.argv) < 1:
-        TemplateSeeder(session).seed_all()
-        GameEngineSeeder(session).seed_all()
-    else:
-        if sys.argv[1] in seeders:
-            seeders[sys.argv[1]](session).seed()
-        else:
-            print('Invalid seeder given must be one of: %s' % ' '.join(seeders.keys()))
-            sys.exit(1)
-    session.commit()
