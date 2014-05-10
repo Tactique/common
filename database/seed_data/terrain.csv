@@ -1,7 +1,8 @@
 cellType,name
 0,plains
-1,dirt
-2,mountain
-3,forest
-4,lava
-5,water
+1,road
+2,dirt
+3,mountain
+4,forest
+5,lava
+6,water
