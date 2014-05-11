@@ -60,7 +60,7 @@ class GameEngineSeeder(BaseSeeder):
                 index = names.index(unique_name)
                 kwargs = dict(zip(names, pieces))
                 if custom_function != None:
-                    kwargs = custom_function(kwargs)
+                    kwargs = custom_function(index, kwargs)
                 print("Creating %s(%s)" % (
                     model_name, ', '.join(map(str, pieces))))
                 dbEntry = constructor(**kwargs)
@@ -70,13 +70,13 @@ class GameEngineSeeder(BaseSeeder):
 
 
 def get_deferencer(reference_information):
-    def dereferencer(orig_kwargs):
-        return dereference_column_name(orig_kwargs, reference_information)
+    def dereferencer(name, orig_kwargs):
+        return dereference_column_name(name, orig_kwargs, reference_information)
 
     return dereferencer
 
 
-def dereference_column_name(orig_kwargs, reference_information):
+def dereference_column_name(name, orig_kwargs, reference_information):
     kwargs = dict(orig_kwargs)
     for reference_name, reference_table in reference_information.items():
         if reference_name in kwargs:
