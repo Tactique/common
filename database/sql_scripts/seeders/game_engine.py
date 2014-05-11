@@ -11,6 +11,7 @@ from tables.game_engine import (
     SpeedMap,
     Movement,
     Unit,
+    World,
 )
 
 from seeders.base_seeder import BaseSeeder, print_delete_count
@@ -49,6 +50,8 @@ class GameEngineSeeder(BaseSeeder):
             #'attack_two': weapons,
             'armor': armors,
             'movement': movements}))
+        self.seed_entries(World, "World", 'worlds.csv', custom_function=get_file_referencer({
+            'cellData': os.path.join(self.seed_data, 'worlds', 'terrains', '%s.txt')}))
 
     def seed_entries(self, constructor, model_name, csv_file, custom_function=None, unique_name='name'):
         dbEntries = {}
@@ -76,6 +79,21 @@ def get_deferencer(reference_information):
     return dereferencer
 
 
+def get_file_referencer(reference_information):
+    def file_referencer(name, orig_kwargs):
+        return read_external_file(name, orig_kwargs, reference_information)
+
+    return file_referencer
+
+
+def read_external_file(name, orig_kwargs, reference_information):
+        kwargs = dict(orig_kwargs)
+        for reference_name, external_file in reference_information.items():
+            with open(external_file % name, 'r') as file_:
+                kwargs[reference_name] = clean_lined_csv(file_.read())
+
+        return kwargs
+
 def dereference_column_name(name, orig_kwargs, reference_information):
     kwargs = dict(orig_kwargs)
     for reference_name, reference_table in reference_information.items():
@@ -88,6 +106,17 @@ def dereference_column_name(name, orig_kwargs, reference_information):
             raise Exception("reference name %s was given, but is not in header of csv for %s" % (
                 reference_name, csv_file))
     return kwargs
+
+
+def clean_lined_csv(raw_csv):
+    line_broken = raw_csv.split('\n')
+    lines = []
+    for line in line_broken:
+        entries = line.split(',')
+        entries = map(lambda x: x.strip(), entries)
+        line = ','.join(entries)
+        lines.append(line)
+    return '\n'.join(lines)
 
 
 def convert_ints(pieces):

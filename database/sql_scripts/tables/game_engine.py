@@ -110,3 +110,13 @@ class Unit(Base):
     movement = relationship(
         'Movement',
         backref=backref('unit'))
+
+
+class World(Base):
+    __tablename__ = 'world'
+
+    id = sqla.Column(sqla.Integer, primary_key=True)
+    worldId = sqla.Column(sqla.String(MAX_CHAR_LENGTH))
+    name = sqla.Column(sqla.String(MAX_CHAR_LENGTH))
+    numPlayers = sqla.Column(sqla.Integer)
+    cellData = sqla.Column(sqla.String(MAX_CHAR_LENGTH))

@@ -1,0 +1,5 @@
+location_x,location_y,nation_name,unit_name
+0,0,red,warrior
+0,4,red,mage
+4,0,blue,warrior
+4,4,blue,mage
