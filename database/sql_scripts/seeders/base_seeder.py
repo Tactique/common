@@ -1,6 +1,6 @@
 import os
 
-class BaseSeeder:
+class BaseSeeder(object):
     def __init__(self, session):
         self.session = session
         try:
