@@ -9,14 +9,14 @@ function usage() {
 
 function setup_database() {
 	rm database/db.sqlite3
-	./database/sql_scripts/create_db.py
+	./database/sql_scripts/create_tables.py
 	sync_database
 }
 
 function sync_database() {
-	./database/sql_scripts/seeder.py GameEngineSeeder
+	./database/sql_scripts/seed_tables.py GameEngineSeeder
 	generate_templates
-	./database/sql_scripts/seeder.py TemplateSeeder
+	./database/sql_scripts/seed_tables.py TemplateSeeder
 }
 
 function generate_templates() {
