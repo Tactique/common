@@ -34,18 +34,18 @@ class GameEngineSeeder(BaseSeeder):
         self.seed_entries(Team, "Team", 'teams.csv')
         self.seed_entries(Cell, "Cell", 'terrain.csv', unique_name='cellType')
         weapon_types  = self.seed_entries(WeaponType, "WeaponType", 'weaponTypes.csv')
-        weapons = self.seed_entries(Weapon, "Weapon", 'weapons.csv', reference_information={'weaponType': weapon_types})
+        weapons = self.seed_entries(Weapon, "Weapon", 'weapons.csv', custom_function=get_deferencer({'weaponType': weapon_types}))
         armor_types = self.seed_entries(ArmorType, "ArmorType", 'armorTypes.csv')
-        armors = self.seed_entries(Armor, "Armor", 'armors.csv', reference_information={'armorType': armor_types})
+        armors = self.seed_entries(Armor, "Armor", 'armors.csv', custom_function=get_deferencer({'armorType': armor_types}))
         speed_maps = self.seed_entries(SpeedMap, "SpeedMap", 'speedMaps.csv')
-        movements = self.seed_entries(Movement, "Movement", 'movements.csv', reference_information={'speedMap': speed_maps})
-        self.seed_entries(Unit, "Unit", 'units.csv', reference_information={
+        movements = self.seed_entries(Movement, "Movement", 'movements.csv', custom_function=get_deferencer({'speedMap': speed_maps}))
+        self.seed_entries(Unit, "Unit", 'units.csv', custom_function=get_deferencer({
             'attack_one': weapons,
             #'attack_two': weapons,
             'armor': armors,
-            'movement': movements})
+            'movement': movements}))
 
-    def seed_entries(self, constructor, model_name, csv_file, reference_information={}, unique_name='name'):
+    def seed_entries(self, constructor, model_name, csv_file, custom_function=None, unique_name='name'):
         dbEntries = {}
         with open(os.path.join(self.seed_data, csv_file), 'r') as file_:
             reader = csv.reader(file_, quotechar='\'')
@@ -54,21 +54,36 @@ class GameEngineSeeder(BaseSeeder):
                 pieces = convert_ints(pieces)
                 index = names.index(unique_name)
                 kwargs = dict(zip(names, pieces))
-                for reference_name, reference_table in reference_information.items():
-                    if reference_name in kwargs:
-                        if kwargs[reference_name] != 'null':
-                            kwargs[reference_name] = reference_table[kwargs[reference_name]]
-                        else:
-                            kwargs[reference_name] = None
-                    else:
-                        raise Exception("reference name %s was given, but is not in header of csv for %s" % (
-                            reference_name, csv_file))
+                if custom_function != None:
+                    kwargs = custom_function(kwargs)
                 print("Creating %s(%s)" % (
                     model_name, ', '.join(map(str, pieces))))
                 dbEntry = constructor(**kwargs)
                 self.session.add(dbEntry)
                 dbEntries[pieces[index]] = dbEntry
         return dbEntries
+
+
+def get_deferencer(reference_information):
+    def dereferencer(orig_kwargs):
+        return dereference_column_name(orig_kwargs, reference_information)
+
+    return dereferencer
+
+
+def dereference_column_name(orig_kwargs, reference_information):
+    kwargs = dict(orig_kwargs)
+    for reference_name, reference_table in reference_information.items():
+        if reference_name in kwargs:
+            if kwargs[reference_name] != 'null':
+                kwargs[reference_name] = reference_table[kwargs[reference_name]]
+            else:
+                kwargs[reference_name] = None
+        else:
+            raise Exception("reference name %s was given, but is not in header of csv for %s" % (
+                reference_name, csv_file))
+    return kwargs
+
 
 def convert_ints(pieces):
     ret = []
