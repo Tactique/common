@@ -40,20 +40,27 @@ class GameEngineSeeder(BaseSeeder):
         self.seed_entries(Team, "Team", 'teams.csv')
         self.seed_entries(Cell, "Cell", 'terrain.csv', unique_name='cellType')
         weapon_types  = self.seed_entries(WeaponType, "WeaponType", 'weaponTypes.csv')
-        weapons = self.seed_entries(Weapon, "Weapon", 'weapons.csv', custom_functions=[get_deferencer({'weaponType': weapon_types})])
+        weapons = self.seed_entries(Weapon, "Weapon", 'weapons.csv', custom_functions=[
+            get_deferencer({'weaponType': weapon_types})])
         armor_types = self.seed_entries(ArmorType, "ArmorType", 'armorTypes.csv')
-        armors = self.seed_entries(Armor, "Armor", 'armors.csv', custom_functions=[get_deferencer({'armorType': armor_types})])
+        armors = self.seed_entries(Armor, "Armor", 'armors.csv', custom_functions=[
+            get_deferencer({'armorType': armor_types})])
         speed_maps = self.seed_entries(SpeedMap, "SpeedMap", 'speedMaps.csv')
-        movements = self.seed_entries(Movement, "Movement", 'movements.csv', custom_functions=[get_deferencer({'speedMap': speed_maps})])
-        self.seed_entries(Unit, "Unit", 'units.csv', custom_functions=[get_deferencer({
-            'attack_one': weapons,
-            #'attack_two': weapons,
-            'armor': armors,
-            'movement': movements})])
-        self.seed_entries(World, "World", 'worlds.csv', custom_functions=[get_file_referencer({
-            'cellData': os.path.join(self.seed_data, 'worlds', 'terrains', '%s.txt')})])
+        movements = self.seed_entries(Movement, "Movement", 'movements.csv', custom_functions=[
+            get_deferencer({'speedMap': speed_maps})])
+        units = self.seed_entries(Unit, "Unit", 'units.csv', custom_functions=[
+            get_deferencer({
+                'attack_one': weapons,
+                #'attack_two': weapons,
+                'armor': armors,
+                'movement': movements})])
+        self.seed_entries(World, "World", 'worlds.csv', custom_functions=[
+            get_file_referencer({
+                'cellData': os.path.join(self.seed_data, 'worlds', 'terrains', '%s.txt')})])
 
-    def seed_entries(self, constructor, model_name, csv_file, custom_functions=None, unique_name='name'):
+    def seed_entries(
+            self, constructor, model_name, csv_file,
+            custom_functions=None, unique_name='name'):
         dbEntries = {}
         with open(os.path.join(self.seed_data, csv_file), 'r') as file_:
             reader = csv.reader(file_, quotechar='\'')
