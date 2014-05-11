@@ -9,6 +9,10 @@ from tables.templates import (
 from seeders.base_seeder import BaseSeeder, print_delete_count
 
 class TemplateSeeder(BaseSeeder):
+    def __init__(self, session):
+        BaseSeeder.__init__(self, session)
+        self.template_data = os.path.join(self.database_dir, 'templates')
+
     def seed(self):
         self.clear_templates()
         for response_path in os.listdir(self.template_data):

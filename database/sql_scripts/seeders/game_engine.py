@@ -17,6 +17,11 @@ from seeders.base_seeder import BaseSeeder, print_delete_count
 
 
 class GameEngineSeeder(BaseSeeder):
+
+    def __init__(self, session):
+        BaseSeeder.__init__(self, session)
+        self.seed_data = os.path.join(self.database_dir, 'seed_data')
+
     def clear_game_engine(self):
         print("Clearing all game engine tables")
         print_delete_count(self.session.query(Team).delete())
