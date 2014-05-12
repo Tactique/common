@@ -1,4 +1,4 @@
-location_x,location_y,nation_name,unit_name
+location_x,location_y,nation_name,unit
 0,0,red,warrior
 0,4,red,mage
 4,0,blue,warrior
