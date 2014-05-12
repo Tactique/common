@@ -95,12 +95,12 @@ def get_file_referencer(reference_information):
 
 
 def read_external_file(name, orig_kwargs, reference_information):
-        kwargs = dict(orig_kwargs)
-        for reference_name, external_file in reference_information.items():
-            with open(external_file % name, 'r') as file_:
-                kwargs[reference_name] = clean_lined_csv(file_.read())
+    kwargs = dict(orig_kwargs)
+    for reference_name, external_file in reference_information.items():
+        with open(os.path.join(external_file, '%s.txt' % name), 'r') as file_:
+            kwargs[reference_name] = clean_lined_csv(file_.read())
+    return kwargs
 
-        return kwargs
 
 def dereference_column_name(name, orig_kwargs, reference_information):
     kwargs = dict(orig_kwargs)
