@@ -56,7 +56,7 @@ class GameEngineSeeder(BaseSeeder):
                 'movement': movements})])
         self.seed_entries(World, "World", 'worlds.csv', custom_functions=[
             get_file_referencer({
-                'cellData': os.path.join(self.seed_data, 'worlds', 'terrains', '%s.txt')})])
+                'cellData': os.path.join(self.seed_data, 'worlds', 'terrains')})])
 
     def seed_entries(
             self, constructor, model_name, csv_file,
